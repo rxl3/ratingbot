@@ -68,11 +68,13 @@ async function getRating(interaction, noCache) {
       ].rating += +playerRating;
     }
 
-    teamRatings[teamRatings.length - 1][
-      teamRatings[teamRatings.length - 1].length - 1
-    ].rating = (+teamRatings[teamRatings.length - 1][
-      teamRatings[teamRatings.length - 1].length - 1
-    ].rating).toFixed(4);
+    if (members.size > 0) {
+      teamRatings[teamRatings.length - 1][
+        teamRatings[teamRatings.length - 1].length - 1
+      ].rating = (+teamRatings[teamRatings.length - 1][
+        teamRatings[teamRatings.length - 1].length - 1
+      ].rating).toFixed(4);
+    }
   }
 
   return teamRatings;
