@@ -22,16 +22,21 @@ module.exports = {
     await interaction.deferReply();
 
     const user = interaction.options.getString("user");
-    const steamId = interaction.options.getString("steamid");
+    let steamId = interaction.options.getString("steamid") + "";
 
     if (!user) {
       await interaction.editReply("No user provided.");
       return;
     }
     if (!steamId) {
-      await interaction.editReply("No Steam ID provided.");
+      await interaction.editReply("No Steam ID/logs.tf URL provided.");
       return;
     }
+
+    steamId =
+      steamId.indexOf("logs.tf") > -1
+        ? steamId.match(/(?<=profile\/)[0-9]+/g)
+        : steamId;
 
     console.log(`Got request to link ${user} to ${steamId}`);
 
