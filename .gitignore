@@ -1,2 +1,4 @@
 node_modules
 config.json
+rating_cache.json
+user_ids.json
