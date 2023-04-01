@@ -60,6 +60,7 @@ module.exports = {
 function setSteamID(member, steamId) {
   const existingUser = userIds.idPairs.find((p) => p.discordId === member.id);
   if (existingUser) {
+    console.log("Found existing user " + member.displayName);
     existingUser.steamId = steamId;
     existingUser.name = member.displayName;
   } else {
