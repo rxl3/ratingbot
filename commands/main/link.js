@@ -35,7 +35,7 @@ module.exports = {
 
     steamId =
       steamId.indexOf("logs.tf") > -1
-        ? steamId.match(/(?<=profile\/)[0-9]+/g).length[0]
+        ? steamId.match(/(?<=profile\/)[0-9]+/g)[0]
         : steamId;
 
     console.log(`Got request to link ${user} to ${steamId}`);
