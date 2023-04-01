@@ -122,7 +122,9 @@ async function getPlayerRating(player, noCache) {
 
   console.log(`Requesting rating for ${user.name}...`);
 
-  const data = await request(`https://trends.tf/player/${user.steamId}/totals`);
+  const data = await request(
+    `https://trends.tf/player/${user.steamId}/totals?format=sixes`
+  );
 
   let htmlText = await data.body.text();
   htmlText = htmlText.replace(/\s/g, "");
