@@ -30,11 +30,13 @@ module.exports = {
 
 function convertRatingToString(rating) {
   return rating
-    .map((team) => {
-      team = team.map((player) => `${player.name}: ${player.rating}`);
-      return team.join(", ");
-    })
-    .join("\n");
+    ? rating
+        .map((team) => {
+          team = team.map((player) => `${player.name}: ${player.rating}`);
+          return team.join(", ");
+        })
+        .join("\n")
+    : "";
 }
 
 async function getRating(interaction, noCache) {
@@ -120,19 +122,44 @@ async function getPlayerRating(player, noCache) {
 
   console.log(`Requesting rating for ${user.name}...`);
 
-  const data = await request(`https://trends.tf/player/${user.steamId}/`);
+  const data = await request(`https://trends.tf/player/${user.steamId}/totals`);
 
   let htmlText = await data.body.text();
   htmlText = htmlText.replace(/\s/g, "");
 
-  const playerStats = htmlText
-    .match(/(?<=Sixes<\/td><td>)[0-9\-]+/g)[0]
+  if (htmlText.includes("502BadGateway")) {
+    return null;
+  }
+
+  const playerWinLossStats = htmlText.match(
+    /(?<=Wins\-Losses\-Ties<\/td><td>)[0-9\-]+/g
+  )
+    ? htmlText.match(/(?<=Wins\-Losses\-Ties<\/td><td>)[0-9\-]+/g)[0].split("-")
+    : 0.0;
+
+  const playerWinLossRatio = (
+    (+playerWinLossStats[0] + 50 + +playerWinLossStats[2] * 0.5) /
+    (+playerWinLossStats[0] +
+      +playerWinLossStats[1] +
+      +playerWinLossStats[2] +
+      100)
+  ).toFixed(4);
+
+  const playerKillsStats = htmlText
+    .match(/(?<=Killsper30minutes<\/td><td>)[0-9\.]+/g)[0]
+    .split("-");
+  const playerDeathsStats = htmlText
+    .match(/(?<=Deathsper30minutes<\/td><td>)[0-9\.]+/g)[0]
+    .split("-");
+  const playerAssistsStats = htmlText
+    .match(/(?<=Assistsper30minutes<\/td><td>)[0-9\.]+/g)[0]
     .split("-");
 
-  const playerRating = (
-    (+playerStats[0] + 50 + +playerStats[2] * 0.5) /
-    (+playerStats[0] + +playerStats[1] + +playerStats[2] + 100)
-  ).toFixed(4);
+  const playerKADRatio =
+    (+playerKillsStats + +playerAssistsStats) / +playerDeathsStats;
+
+  let playerRating = 0.0;
+  playerRating += playerWinLossRatio * 0.5 + (playerKADRatio / 4) * 0.5;
 
   console.log(`Got rating for ${user.name}: ${playerRating}`);
 
