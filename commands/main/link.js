@@ -76,6 +76,7 @@ function setSteamID(member, steamId) {
     existingUser.steamId = steamId;
     existingUser.name = member.displayName;
   } else {
+    console.log("Adding new user " + member.displayName);
     const newUser = {
       steamId: steamId,
       discordId: member.id,
