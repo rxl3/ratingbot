@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("discord.js");
 const { request } = require("undici");
-const fs = require("fs");
+const fs = require("node:fs");
 const userIds = require("../../user_ids.json");
 const ratingCache = require("../../rating_cache.json");
 

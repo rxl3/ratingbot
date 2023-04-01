@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js");
-const fs = require("fs");
+const fs = require("node:fs");
 const userIds = require("../../user_ids.json");
 
 module.exports = {
