@@ -35,7 +35,7 @@ module.exports = {
 
     steamId =
       steamId.indexOf("logs.tf") > -1
-        ? steamId.match(/(?<=profile\/)[0-9]+/g)
+        ? steamId.match(/(?<=profile\/)[0-9]+/g).length[0]
         : steamId;
 
     console.log(`Got request to link ${user} to ${steamId}`);
@@ -52,13 +52,25 @@ module.exports = {
 
     setSteamID(member, steamId);
 
+    console.log("Writing user ids: " + JSON.stringify(userIds));
+
     fs.writeFileSync("user_ids.json", JSON.stringify(userIds));
     await interaction.editReply(`All done!`);
   },
 };
 
 function setSteamID(member, steamId) {
-  const existingUser = userIds.idPairs.find((p) => p.discordId === member.id);
+  const existingUser = userIds.idPairs.find((p) =>
+    p.discordId.length === 1
+      ? p.discordId[0] === member.id
+      : p.discordId === member.id
+  )
+    ? userIds.idPairs.find((p) =>
+        p.discordId.length === 1
+          ? p.discordId[0] === member.id
+          : p.discordId === member.id
+      )[0]
+    : null;
   if (existingUser) {
     console.log("Found existing user " + member.displayName);
     existingUser.steamId = steamId;
