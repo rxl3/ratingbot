@@ -6,7 +6,7 @@ module.exports = {
     .setName("rateme")
     .setDescription("Get my current rating"),
   async execute(interaction) {
-    await interaction.deferReply();
+    await interaction.reply("Fetching rating...");
     await interaction.guild.members.fetch();
 
     const rating = await getPlayerRating(interaction.member);
@@ -14,7 +14,7 @@ module.exports = {
     console.log("Done!");
     console.log("Result: " + rating);
 
-    await interaction.editReply({
+    await interaction.followUp({
       content: `${interaction.member.displayName}: ${rating}`,
       ephemeral: true,
     });
