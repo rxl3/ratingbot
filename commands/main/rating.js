@@ -155,8 +155,10 @@ async function getPlayerRating(player, noCache) {
     .match(/(?<=Assistsper30minutes<\/td><td>)[0-9\.]+/g)[0]
     .split("-");
 
-  const playerKADRatio =
-    (+playerKillsStats + +playerAssistsStats) / +playerDeathsStats;
+  const playerKADRatio = (
+    (+playerKillsStats + +playerAssistsStats) /
+    +playerDeathsStats
+  ).toFixed(4);
 
   let playerRating = 0.0;
   playerRating += playerWinLossRatio * 0.5 + (playerKADRatio / 4) * 0.5;
