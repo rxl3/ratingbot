@@ -14,6 +14,9 @@ module.exports = {
     console.log("Done!");
     console.log("Result: " + rating);
 
-    await interaction.editReply(`${interaction.member.displayName}: ${rating}`);
+    await interaction.editReply({
+      content: `${interaction.member.displayName}: ${rating}`,
+      ephemeral: true,
+    });
   },
 };
