@@ -26,6 +26,7 @@ module.exports = {
   },
   getRating,
   convertRatingToString,
+  getPlayerRating,
 };
 
 function convertRatingToString(rating) {

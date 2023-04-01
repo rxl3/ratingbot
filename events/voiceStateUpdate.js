@@ -21,11 +21,23 @@ module.exports = {
         .filter((c) => ["RED-2", "BLUE-2"].includes(c.name))
         .every((c) => c.members.size === 6)
     ) {
-      console.log("Detected full teams, getting ratings...");
-      const rating = await getRating(newState, false);
+      if (offCooldown()) {
+        console.log("Detected full teams, getting ratings...");
+        const rating = await getRating(newState, false);
 
-      const botMessageChannel = channels.find((c) => c.name === "bot-test");
-      botMessageChannel.send(convertRatingToString(rating));
+        const botMessageChannel = channels.find((c) => c.name === "bot-test");
+        botMessageChannel.send(convertRatingToString(rating));
+      }
     }
   },
 };
+
+const COOLDOWN_TIME = 30.0;
+let lastExecuted = Date.now();
+
+function offCooldown() {
+  if (lastExecuted + COOLDOWN_TIME * 1000 < Date.now()) {
+    return true;
+  }
+  return false;
+}
