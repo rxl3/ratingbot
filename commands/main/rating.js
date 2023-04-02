@@ -148,23 +148,38 @@ async function getPlayerRating(player, noCache) {
       100)
   ).toFixed(4);
 
-  const playerKillsStats = htmlText
-    .match(/(?<=Killsper30minutes<\/td><td>)[0-9\.]+/g)[0]
-    .split("-");
-  const playerDeathsStats = htmlText
-    .match(/(?<=Deathsper30minutes<\/td><td>)[0-9\.]+/g)[0]
-    .split("-");
-  const playerAssistsStats = htmlText
-    .match(/(?<=Assistsper30minutes<\/td><td>)[0-9\.]+/g)[0]
-    .split("-");
+  const playerKillsStats = htmlText.match(
+    /(?<=Killsper30minutes<\/td><td>)[0-9\.]+/g
+  )[0];
+  const playerDeathsStats = htmlText.match(
+    /(?<=Deathsper30minutes<\/td><td>)[0-9\.]+/g
+  )[0];
+  const playerAssistsStats = htmlText.match(
+    /(?<=Assistsper30minutes<\/td><td>)[0-9\.]+/g
+  )[0];
 
   const playerKADRatio = (
     (+playerKillsStats + +playerAssistsStats) /
     +playerDeathsStats
   ).toFixed(4);
 
+  const playerDPMStats = htmlText.match(
+    /(?<=Damageperminute<\/td><td>)[0-9\.]+/g
+  )[0];
+  const playerHRPMsStats = htmlText.match(
+    /(?<=Healsreceivedperminute<\/td><td>)[0-9\.]+/g
+  )[0];
+
+  const playerDPHRatio = +playerDPMStats / +playerHRPMsStats;
+
+  const playerHPM = htmlText.match(
+    /(?<=Healingperminute<\/td><td>)[0-9\.]+/g
+  )[0];
+
   let playerRating = (
-    (+playerWinLossRatio * 0.5 + (+playerKADRatio / 3) * 0.5).toFixed(4) * 100
+    (+playerWinLossRatio * 0.4 + (+playerKADRatio / 3) * 0.4).toFixed(4) * 100 +
+    (+playerDPHRatio / 1.6) * 0.1 +
+    (+playerHPM / 150) * 0.1
   ).toFixed(2);
 
   console.log(`Got rating for ${user.name}: ${playerRating}`);
