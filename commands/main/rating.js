@@ -177,9 +177,12 @@ async function getPlayerRating(player, noCache) {
   )[0];
 
   let playerRating = (
-    (+playerWinLossRatio * 0.4 + (+playerKADRatio / 3) * 0.4).toFixed(4) * 100 +
-    (+playerDPHRatio / 1.6) * 0.1 +
-    (+playerHPM / 150) * 0.1
+    (
+      +playerWinLossRatio * 0.4 +
+      (+playerKADRatio / 3) * 0.4 +
+      (+playerDPHRatio / 1.6) * 0.1 +
+      (+playerHPM / 150) * 0.1
+    ).toFixed(4) * 100
   ).toFixed(2);
 
   console.log(`Got rating for ${user.name}: ${playerRating}`);
