@@ -9,7 +9,7 @@ module.exports = {
     await interaction.reply("Fetching rating...");
     await interaction.guild.members.fetch();
 
-    const rating = await getPlayerRating(interaction.member);
+    const rating = await getPlayerRating(interaction.member, true);
 
     console.log("Done!");
     console.log("Result: " + rating);
