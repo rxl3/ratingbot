@@ -200,5 +200,7 @@ async function getPlayerRating(player, noCache) {
 
   fs.writeFileSync("rating_cache.json", JSON.stringify(ratingCache));
 
+  delete require.cache[require.resolve("../../rating_cache.json")];
+
   return playerRating;
 }
