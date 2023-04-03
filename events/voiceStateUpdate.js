@@ -7,7 +7,6 @@ module.exports = {
     if (oldState.channelId === newState.channelId) {
       return;
     }
-    await newState.guild.channels.fetch();
     await newState.guild.members.fetch();
     let channels = newState.guild.channels.cache;
     teamChannels = channels.filter((c) =>
@@ -50,6 +49,7 @@ module.exports = {
       }
     }
   },
+  suggestPlayerSwap,
 };
 
 const COOLDOWN_TIME = 30000;
