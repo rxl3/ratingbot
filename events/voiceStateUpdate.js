@@ -18,6 +18,10 @@ module.exports = {
 
     const newChannel = channels.get(newState.channelId);
 
+    if (!newChannel) {
+      return;
+    }
+
     if (
       (["RED", "BLUE"].includes(newChannel.name) &&
         teamChannels
