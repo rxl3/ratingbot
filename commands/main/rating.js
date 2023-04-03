@@ -172,7 +172,14 @@ async function getPlayerRating(player, noCache) {
 
   const playerDPHRatio = +playerDPMStats / +playerHRPMsStats;
 
-  const playerHPM = htmlText.match(
+  const medicData = await request(
+    `https://trends.tf/player/${user.steamId}/totals?format=sixes&class=medic`
+  );
+
+  let medicHtmlText = await medicData.body.text();
+  medicHtmlText = medicHtmlText.replace(/\s/g, "");
+
+  const playerHPM = medicHtmlText.match(
     /(?<=Healingperminute<\/td><td>)[0-9\.]+/g
   )[0];
 
@@ -181,7 +188,7 @@ async function getPlayerRating(player, noCache) {
       +playerWinLossRatio * 0.4 +
       (+playerKADRatio / 3) * 0.4 +
       (+playerDPHRatio / 1.6) * 0.1 +
-      (+playerHPM / 150) * 0.1
+      (+playerHPM / 1200) * 0.1
     ).toFixed(4) * 100
   ).toFixed(2);
 
