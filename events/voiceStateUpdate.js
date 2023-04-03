@@ -41,7 +41,8 @@ module.exports = {
         if (
           rating.length > 1 &&
           Math.abs(
-            +rating[0][rating[0].length - 1] - +rating[1][rating[1].length - 1]
+            +rating[0][rating[0].length - 1].rating -
+              +rating[1][rating[1].length - 1].rating
           ) > 25
         ) {
           botMessageChannel.send(suggestPlayerSwap(rating));
