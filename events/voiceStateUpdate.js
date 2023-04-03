@@ -14,7 +14,9 @@ module.exports = {
       ["RED", "BLU", "BLUE", "RED-2", "BLUE-2"].includes(c.name)
     );
 
-    const newChannel = channels.find((c) => c.id === newState.channelId);
+    console.log("Just joined channel: " + newState.channelId);
+
+    const newChannel = channels.get(newState.channelId);
 
     if (
       (["RED", "BLUE"].includes(newChannel.name) &&
