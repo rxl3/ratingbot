@@ -13,13 +13,22 @@ module.exports = {
       ["RED", "BLU", "BLUE", "RED-2", "BLUE-2"].includes(c.name)
     );
 
+    //   teamChannels
+    //     .filter((c) => ["RED", "BLUE"].includes(c.name))
+    //     .forEach((c_) => {
+    //       console.log(c_.members.size);
+    //     })
+    // );
+
     if (
-      teamChannels
-        .filter((c) => ["RED", "BLUE"].includes(c.name))
-        .every((c) => c.members.size === 6) ||
-      teamChannels
-        .filter((c) => ["RED-2", "BLUE-2"].includes(c.name))
-        .every((c) => c.members.size === 6)
+      (["RED", "BLUE"].includes(newState.channel.name) &&
+        teamChannels
+          .filter((c) => ["RED", "BLUE"].includes(c.name))
+          .every((c) => c.members.size === 6)) ||
+      (["RED-2", "BLUE-2"].includes(newState.channel.name) &&
+        teamChannels
+          .filter((c) => ["RED-2", "BLUE-2"].includes(c.name))
+          .every((c) => c.members.size === 6))
     ) {
       if (offCooldown()) {
         console.log("Detected full teams, getting ratings...");
@@ -32,11 +41,11 @@ module.exports = {
   },
 };
 
-const COOLDOWN_TIME = 30.0;
+const COOLDOWN_TIME = 30000;
 let lastExecuted = Date.now();
 
 function offCooldown() {
-  if (lastExecuted + COOLDOWN_TIME * 1000 < Date.now()) {
+  if (lastExecuted + COOLDOWN_TIME < Date.now()) {
     return true;
   }
   return false;
