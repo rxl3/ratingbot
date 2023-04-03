@@ -14,18 +14,14 @@ module.exports = {
       ["RED", "BLU", "BLUE", "RED-2", "BLUE-2"].includes(c.name)
     );
 
-    teamChannels
-      .filter((c) => ["RED", "BLUE"].includes(c.name))
-      .forEach((c_) => {
-        console.log(c_);
-      });
+    const newChannel = channels.find((c) => c.id === newState.channelId);
 
     if (
-      (["RED", "BLUE"].includes(newState.channel.cache.name) &&
+      (["RED", "BLUE"].includes(newChannel.name) &&
         teamChannels
           .filter((c) => ["RED", "BLUE"].includes(c.name))
           .every((c) => c.members.size === 6)) ||
-      (["RED-2", "BLUE-2"].includes(newState.channel.cache.name) &&
+      (["RED-2", "BLUE-2"].includes(newChannel.name) &&
         teamChannels
           .filter((c) => ["RED-2", "BLUE-2"].includes(c.name))
           .every((c) => c.members.size === 6))
