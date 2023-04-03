@@ -37,6 +37,9 @@ module.exports = {
     console.log("Done!");
     console.log(`${member.displayName}: ${rating}`);
 
-    await interaction.editReply(`${member.displayName}: ${rating}`);
+    await interaction.editReply(`Rating found.`);
+    await interaction.followUp(`${member.displayName}: ${rating}`, {
+      ephemeral: true,
+    });
   },
 };
