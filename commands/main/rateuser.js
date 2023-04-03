@@ -13,7 +13,9 @@ module.exports = {
     )
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   async execute(interaction) {
-    await interaction.deferReply();
+    await interaction.deferReply({
+      ephemeral: true,
+    });
 
     const user = interaction.options.getString("user");
 
@@ -37,9 +39,6 @@ module.exports = {
     console.log("Done!");
     console.log(`${member.displayName}: ${rating}`);
 
-    await interaction.editReply(`Rating found.`);
-    await interaction.followUp(`${member.displayName}: ${rating}`, {
-      ephemeral: true,
-    });
+    await interaction.editReply(`${member.displayName}: ${rating}`);
   },
 };

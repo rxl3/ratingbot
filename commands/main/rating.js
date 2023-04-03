@@ -187,7 +187,7 @@ async function getPlayerRating(player, noCache) {
     (
       +playerWinLossRatio * 0.4 +
       (+playerKADRatio / 3) * 0.4 +
-      (+playerDPHRatio / 1.6) * 0.1 +
+      (+playerDPHRatio / 2) * 0.1 +
       (+playerHPM / 1200) * 0.1
     ).toFixed(4) * 100
   ).toFixed(2);
