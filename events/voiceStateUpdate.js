@@ -7,25 +7,25 @@ module.exports = {
     if (oldState.channelId === newState.channelId) {
       return;
     }
+    await newState.guild.channels.fetch();
     await newState.guild.members.fetch();
     let channels = newState.guild.channels.cache;
     teamChannels = channels.filter((c) =>
       ["RED", "BLU", "BLUE", "RED-2", "BLUE-2"].includes(c.name)
     );
 
-    //   teamChannels
-    //     .filter((c) => ["RED", "BLUE"].includes(c.name))
-    //     .forEach((c_) => {
-    //       console.log(c_.members.size);
-    //     })
-    // );
+    teamChannels
+      .filter((c) => ["RED", "BLUE"].includes(c.name))
+      .forEach((c_) => {
+        console.log(c_);
+      });
 
     if (
-      (["RED", "BLUE"].includes(newState.channel.name) &&
+      (["RED", "BLUE"].includes(newState.channel.cache.name) &&
         teamChannels
           .filter((c) => ["RED", "BLUE"].includes(c.name))
           .every((c) => c.members.size === 6)) ||
-      (["RED-2", "BLUE-2"].includes(newState.channel.name) &&
+      (["RED-2", "BLUE-2"].includes(newState.channel.cache.name) &&
         teamChannels
           .filter((c) => ["RED-2", "BLUE-2"].includes(c.name))
           .every((c) => c.members.size === 6))
