@@ -30,14 +30,14 @@ module.exports = {
 };
 
 function convertRatingToString(rating) {
-  return rating
+  return rating && rating.length > 0
     ? rating
         .map((team) => {
           team = team.map((player) => `${player.name}: ${player.rating}`);
           return team.join(", ");
         })
         .join("\n")
-    : "";
+    : "No rated users in team channels!";
 }
 
 async function getRating(interaction, noCache) {
