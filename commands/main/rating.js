@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const { request } = require("undici");
 const fs = require("node:fs");
 const userIds = require("../../user_ids.json");
