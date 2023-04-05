@@ -17,7 +17,8 @@ module.exports = {
         .setName("steamid")
         .setDescription("The user's steam profile ID or logs.tf URL")
         .setRequired(true)
-    ),
+    )
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   async execute(interaction) {
     await interaction.deferReply();
 

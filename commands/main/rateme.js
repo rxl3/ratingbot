@@ -4,7 +4,8 @@ const { getPlayerRating } = require("./rating");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("rateme")
-    .setDescription("Get my current rating"),
+    .setDescription("Get my current rating")
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   async execute(interaction) {
     await interaction.reply("Fetching rating...");
     await interaction.guild.members.fetch();

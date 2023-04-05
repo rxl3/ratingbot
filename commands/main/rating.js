@@ -12,7 +12,8 @@ module.exports = {
       option
         .setName("nocache")
         .setDescription("Fetch new rating data for each user")
-    ),
+    )
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   async execute(interaction) {
     await interaction.deferReply();
 
