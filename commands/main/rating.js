@@ -44,9 +44,7 @@ async function getRating(interaction, noCache) {
   await interaction.guild.members.fetch();
   let channels = interaction.guild.channels.cache;
   channels = channels.filter((c) =>
-    ["RED", "BLU", "BLUE", "WAITING", "RED-2", "BLUE-2", "WAITING-2"].includes(
-      c.name
-    )
+    ["RED", "BLU", "BLUE", "RED-2", "BLUE-2"].includes(c.name)
   );
 
   const teamRatings = [];
@@ -201,6 +199,8 @@ async function getPlayerRating(player, noCache) {
   });
 
   fs.writeFileSync("rating_cache.json", JSON.stringify(ratingCache));
+
+  delete require.cache[require.resolve("../../rating_cache.json")];
 
   return playerRating;
 }
