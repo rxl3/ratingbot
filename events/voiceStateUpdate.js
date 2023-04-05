@@ -47,6 +47,7 @@ module.exports = {
         ) {
           botMessageChannel.send(suggestPlayerSwap(rating));
         }
+        botMessageChannel.send("===\n");
       }
     }
   },
