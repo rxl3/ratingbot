@@ -18,6 +18,11 @@ module.exports = {
 
     const rolls = [];
 
+    if (numRolls > numPlayers) {
+      await interaction.editReply("No");
+      return;
+    }
+
     while (rolls.length < numRolls) {
       let maybeRoll = Math.ceil(Math.random() * numPlayers);
       if (!rolls.includes(maybeRoll)) {
