@@ -100,15 +100,10 @@ async function getPlayerRating(player, noCache) {
 
   console.log(`Found user ${player.displayName}!`);
 
-  const existingRatingIndex = ratingCache.ratings.findIndex(
-    (r) => r.discordId === player.user.id
-  );
-
   if (!noCache) {
-    const existingRating =
-      existingRatingIndex > -1
-        ? ratingCache.ratings[existingRatingIndex]
-        : null;
+    const existingRating = ratingCache.ratings[player.user.id]
+      ? ratingCache.ratings[player.user.id]
+      : null;
 
     if (existingRating) {
       console.log(
@@ -193,11 +188,10 @@ async function getPlayerRating(player, noCache) {
 
   console.log(`Got rating for ${user.name}: ${playerRating}`);
 
-  ratingCache.ratings.push({
-    discordId: player.user.id,
+  ratingCache.ratings[player.user.id] = {
     rating: playerRating,
     name: player.displayName,
-  });
+  };
 
   fs.writeFileSync("rating_cache.json", JSON.stringify(ratingCache));
 
