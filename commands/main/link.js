@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 const fs = require("node:fs");
 const userIds = require("../../user_ids.json");
+const { convertCommIdToUSteamId } = require("../../add_steamids");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -76,12 +77,14 @@ function setSteamID(member, steamId) {
     console.log("Found existing user " + member.displayName);
     existingUser.steamId = steamId;
     existingUser.name = member.displayName;
+    existingUser.uSteamId = convertCommIdToUSteamId(steamId);
   } else {
     console.log("Adding new user " + member.displayName);
     const newUser = {
       steamId: steamId,
       discordId: member.id,
       name: member.displayName,
+      uSteamId: convertCommIdToUSteamId(steamId),
     };
     userIds.idPairs.push(newUser);
   }

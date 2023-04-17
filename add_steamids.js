@@ -41,7 +41,7 @@ function convertSteamIdToUSteamId(steamId) {
   return "[" + uSteamId.join(":") + "]";
 }
 
-function convertCommIdToUSteamId(commId) {
+export function convertCommIdToUSteamId(commId) {
   let steamId = convertCommIdToSteamId(commId);
   let uSteamId = convertSteamIdToUSteamId(steamId);
   return uSteamId;

@@ -5,7 +5,10 @@ module.exports = {
     .setName("droll")
     .setDescription("Roll captains")
     .addIntegerOption((option) =>
-      option.setName("players").setDescription("Number of players")
+      option
+        .setName("players")
+        .setDescription("Number of players")
+        .setRequired(true)
     )
     .addIntegerOption((option) =>
       option.setName("rolls").setDescription("Number of rolls")
@@ -14,7 +17,9 @@ module.exports = {
     await interaction.deferReply();
 
     const numPlayers = interaction.options.getInteger("players");
-    const numRolls = interaction.options.getInteger("rolls");
+    const numRolls = interaction.options.getInteger("rolls")
+      ? interaction.options.getInteger("rolls")
+      : 1;
 
     const rolls = [];
 
