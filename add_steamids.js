@@ -1,13 +1,11 @@
 const fs = require("node:fs");
 const userIds = require("./user_ids.json");
 
-const baseUrl = "http://api.steampowered.com";
-
-// const steamId = "76561198000694630";
-
-const steamIds = ["76561198000694630"];
-
 const steamId64Ident = 76561197960265728;
+
+module.exports = {
+  convertCommIdToUSteamId,
+};
 
 function convertCommIdToSteamId(commId) {
   let steamId = [];
@@ -41,7 +39,7 @@ function convertSteamIdToUSteamId(steamId) {
   return "[" + uSteamId.join(":") + "]";
 }
 
-export function convertCommIdToUSteamId(commId) {
+function convertCommIdToUSteamId(commId) {
   let steamId = convertCommIdToSteamId(commId);
   let uSteamId = convertSteamIdToUSteamId(steamId);
   return uSteamId;
@@ -54,13 +52,3 @@ for (let id of userIds.idPairs) {
 }
 
 fs.writeFileSync("user_ids.json", JSON.stringify(userIds));
-
-// async function setSteamIds() {
-//   const data = await request(
-//     `${baseUrl}/ISteamUser/GetPlayerSummaries/v0002/?key=${steamToken}&steamids=${steamId}`
-//   );
-//   const jsonData = await data.body.json();
-//   console.log(jsonData);
-// }
-
-// await setSteamIds();
