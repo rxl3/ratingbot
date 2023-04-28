@@ -24,15 +24,14 @@ module.exports = {
     const rolls = [];
 
     if (numRolls > numPlayers) {
-      await interaction.editReply("No");
-      return;
+      numRolls = numPlayers;
     }
 
+    const seedRolls = [...Array(numRolls + 1).keys()].slice(1);
+
     while (rolls.length < numRolls) {
-      let maybeRoll = Math.ceil(Math.random() * numPlayers);
-      if (!rolls.includes(maybeRoll)) {
-        rolls.push(maybeRoll);
-      }
+      let rollIndex = Math.floor(Math.random() * seedRolls.length);
+      rolls.push(...seedRolls.splice(rollIndex, 1));
     }
 
     await interaction.editReply(`${rolls.join(", ")}`);
