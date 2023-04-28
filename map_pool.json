@@ -1,0 +1,62 @@
+[
+  {
+    "name": "cp_process",
+    "string": "rcon changelevel cp_process_f12",
+    "randomizable": true
+  },
+  {
+    "name": "cp_snakewater",
+    "string": "rcon changelevel cp_snakewater_final1",
+    "randomizable": true
+  },
+  {
+    "name": "cp_sunshine",
+    "string": "rcon changelevel cp_sunshine",
+    "randomizable": true
+  },
+  {
+    "name": "cp_gullywash",
+    "string": "rcon changelevel cp_gullywash_f9",
+    "randomizable": true
+  },
+  {
+    "name": "cp_sultry",
+    "string": "rcon changelevel cp_sultry_b8",
+    "randomizable": true
+  },
+  {
+    "name": "cp_reckoner",
+    "string": "rcon changelevel cp_reckoner_rc6",
+    "randomizable": true
+  },
+  {
+    "name": "cp_metalworks",
+    "string": "rcon changelevel cp_proworks_v1",
+    "randomizable": true
+  },
+  {
+    "name": "cp_granary",
+    "string": "rcon changelevel cp_granary_pro_rc15b",
+    "randomizable": false
+  },
+  {
+    "name": "cp_badlands",
+    "string": "rcon changelevel cp_prolands_rc2p",
+    "randomizable": false
+  },
+  {
+    "name": "koth_viaduct",
+    "string": "rcon changelevel koth_product_final",
+    "randomizable": false
+  },
+  {
+    "name": "koth_bagel",
+    "string": "rcon changelevel koth_bagel_rc5",
+    "randomizable": false
+  },
+  {
+    "name": "koth_clearcut",
+    "string": "rcon changelevel koth_clearcut_b15d",
+    "randomizable": false
+  }
+]
