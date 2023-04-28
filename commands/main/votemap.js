@@ -3,7 +3,6 @@ const fs = require("node:fs");
 const mapPool = require("../../map_pool.json");
 
 const { mapVotingChannelId } = require("../../config.json");
-const { count } = require("node:console");
 
 // const lastTwoMaps = require("../../last_two_maps.json");
 let lastTwoMaps = ["cp_process"];
@@ -15,11 +14,22 @@ const currentVotes = {
 };
 let currentVoteMessage = null;
 
+let interval = null;
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("votemap")
     .setDescription("Call a map vote"),
   async execute(interaction) {
+    if (interval !== null) {
+      await interaction.reply({
+        content:
+          "Another vote is already happening, please wait for that one to finish...",
+        ephemeral: true,
+      });
+      await interaction.deleteReply();
+      return;
+    }
     await interaction.reply({ content: "Starting vote...", ephemeral: true });
     await interaction.deleteReply();
 
@@ -85,7 +95,7 @@ module.exports = {
 
     let countdown = 58;
 
-    const interval = setInterval(async () => {
+    interval = setInterval(async () => {
       embed.setDescription(`
         1: ${currentVoteMaps[0].name}\n
         2: ${currentVoteMaps[1].name}\n
@@ -105,6 +115,7 @@ module.exports = {
 
     collector.on("end", async (collected) => {
       clearInterval(interval);
+      interval = null;
       await currentVoteMessage.delete();
 
       collected.forEach((value, ky) => {
