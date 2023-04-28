@@ -27,7 +27,7 @@ module.exports = {
       numRolls = numPlayers;
     }
 
-    const seedRolls = [...Array(numRolls + 1).keys()].slice(1);
+    const seedRolls = [...Array(numPlayers + 1).keys()].slice(1);
 
     while (rolls.length < numRolls) {
       let rollIndex = Math.floor(Math.random() * seedRolls.length);
