@@ -17,7 +17,7 @@ module.exports = {
     await interaction.deferReply();
 
     const numPlayers = interaction.options.getInteger("players");
-    const numRolls = interaction.options.getInteger("rolls")
+    let numRolls = interaction.options.getInteger("rolls")
       ? interaction.options.getInteger("rolls")
       : 1;
 

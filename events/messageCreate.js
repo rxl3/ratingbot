@@ -4,14 +4,15 @@ const { diceRollChannelId } = require("../config.json")
 module.exports = {
   name: Events.MessageCreate,
   async execute(message) {
+    console.log(!message.content.startsWith("/droll"), message.channelId);
     if (!message.content.startsWith("/droll") || message.channelId !== diceRollChannelId) return;
 
-    const messageParts = message.split(' ');
+    const messageParts = message.content.split(' ');
 
     if (messageParts.length < 2) return;
 
     const numPlayers = messageParts[1];
-    const numRolls = messageParts.length > 2
+    let numRolls = messageParts.length > 2
       ? messageParts[2]
       : 1;
 
