@@ -9,11 +9,13 @@ module.exports = {
 
     const messageParts = message.content.split(' ');
 
+    console.log(messageParts);
+
     if (messageParts.length < 2) return;
 
-    const numPlayers = messageParts[1];
+    const numPlayers = +messageParts[1];
     let numRolls = messageParts.length > 2
-      ? messageParts[2]
+      ? +messageParts[2]
       : 1;
 
     const rolls = [];
