@@ -1,6 +1,8 @@
 const { Events } = require("discord.js");
 const { getRating, convertRatingToString } = require("../commands/main/rating");
 
+const { autoRating } = require("../config.json");
+
 module.exports = {
   name: Events.VoiceStateUpdate,
   async execute(oldState, newState) {
@@ -31,7 +33,7 @@ module.exports = {
           .filter((c) => ["RED-2", "BLUE-2"].includes(c.name))
           .every((c) => c.members.size === 6))
     ) {
-      if (offCooldown()) {
+      if (offCooldown() && autoRating) {
         console.log("Detected full teams, getting ratings...");
         const rating = await getRating(newState, false);
 
