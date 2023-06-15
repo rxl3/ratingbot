@@ -8,11 +8,13 @@ module.exports = {
   async execute(interaction) {
     await interaction.deferReply();
 
-    const defaultMaps = mapPool.filter(
-      (m) =>
-        ["cp_snakewater", "cp_sunshine", "cp_gullywash"].includes(m.name) &&
-        !currentVoteMaps.some((c) => c.name === m.name)
-    );
+    const defaultMaps = [
+      ...mapPool.filter(
+        (m) =>
+          ["cp_snakewater", "cp_sunshine", "cp_gullywash"].includes(m.name) &&
+          !currentVoteMaps.some((c) => c.name === m.name)
+      ),
+    ];
     currentVoteMaps = [...defaultMaps];
 
     console.log(currentVoteMaps);

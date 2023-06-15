@@ -6,8 +6,14 @@ module.exports = {
     .setName("checknominations")
     .setDescription("Check current nominations"),
   async execute(interaction) {
-    await interaction.reply(`${currentVoteMaps.join(", ")}`, {
-      ephemeral: true,
-    });
+    if (currentVoteMaps.length > 0) {
+      await interaction.reply(`${currentVoteMaps.join(", ")}`, {
+        ephemeral: true,
+      });
+    } else {
+      await interaction.reply(`No maps nominated.`, {
+        ephemeral: true,
+      });
+    }
   },
 };

@@ -33,11 +33,13 @@ module.exports = {
     await interaction.reply({ content: "Starting vote...", ephemeral: true });
     await interaction.deleteReply();
 
-    const defaultMaps = mapPool.filter(
-      (m) =>
-        ["cp_snakewater", "cp_sunshine", "cp_gullywash"].includes(m.name) &&
-        !currentVoteMaps.some((c) => c.name === m.name)
-    );
+    const defaultMaps = [
+      ...mapPool.filter(
+        (m) =>
+          ["cp_snakewater", "cp_sunshine", "cp_gullywash"].includes(m.name) &&
+          !currentVoteMaps.some((c) => c.name === m.name)
+      ),
+    ];
     console.log(lastTwoMaps);
     if (lastTwoMaps.length < 2) {
       while (currentVoteMaps.length < 3) {
