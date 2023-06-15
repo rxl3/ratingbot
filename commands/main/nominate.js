@@ -22,10 +22,11 @@ module.exports = {
     await interaction.deferReply();
     const mapName = interaction.options.getString("map");
     if (!currentVoteMaps.some((m) => m.name === mapName)) {
-      //   while (currentVoteMaps.length >= 3) {
-      //     currentVoteMaps.shift();
-      //   }
+      while (currentVoteMaps.length >= 3) {
+        currentVoteMaps.shift();
+      }
       currentVoteMaps.push(mapPool.find((m) => m.name === mapName));
+      console.log(currentVoteMaps);
     }
     await interaction.editReply(`Added ${mapName}.\n`);
   },
