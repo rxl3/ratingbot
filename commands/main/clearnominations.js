@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require("discord.js");
 const { currentVoteMaps } = require("./votemap");
+const mapPool = require("../../map_pool.json");
 
 module.exports = {
   data: new SlashCommandBuilder()
